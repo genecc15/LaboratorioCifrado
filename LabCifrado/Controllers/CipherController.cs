@@ -11,11 +11,11 @@ namespace LabCifrado.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class Cipher : ControllerBase
+    public class CipherController : ControllerBase
     {
         public static IWebHostEnvironment _environment;
 
-        public Cipher(IWebHostEnvironment env)
+        public CipherController(IWebHostEnvironment env)
         {
             _environment = env;
         }
@@ -29,10 +29,9 @@ namespace LabCifrado.Controllers
             public string Clave { get; set; }
         }
 
-        [Route("Upload/{id}/Cesar")]
+        [Route("/Upload/{id}/Cesar")]
         [HttpPost]
-
-        public async Task<string> UploadFileText([FromForm] FileUploadApi objFile, string id)
+        public async Task<string> UploadFileText([FromForm] FileUploadApi objFile, [FromForm] ClaveUploadAPI key, string id)
         {
             try
             {
@@ -43,14 +42,22 @@ namespace LabCifrado.Controllers
                     objFile.Files.CopyTo(_fileStream);
                     _fileStream.Flush();
                     _fileStream.Close();
+                    string clave = key.Clave;
+                    CesarCompress(objFile, id, clave);
                     return "\\UploadCesar\\" + objFile.Files.FileName;
                 }
                 else return "Archivo Vacio";
+                
             }
             catch (Exception ex)
             {
                 return ex.Message.ToString();
             }
+        }
+
+        public void CesarCompress(FileUploadApi objFile, string id, string contra)
+        {
+
         }
 
     }
