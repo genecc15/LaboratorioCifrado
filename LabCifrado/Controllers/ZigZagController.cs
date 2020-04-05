@@ -15,8 +15,8 @@ namespace LabCifrado.Controllers
     public class ZigZagController : ControllerBase
     {
         public static IWebHostEnvironment _environment;
-        private readonly ZigZagMetodos CesarCifrado = new ZigZagMetodos();
-        private readonly ZigZagMetodos CesarDesc = new ZigZagMetodos();
+        private readonly ZigZagMetodos ZigZagCifrado = new ZigZagMetodos();
+        private readonly ZigZagMetodos ZigZagDesc = new ZigZagMetodos();
 
         public ZigZagController (IWebHostEnvironment env)
         {
