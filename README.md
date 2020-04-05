@@ -13,3 +13,5 @@ Para ingresar la clave en Espiral debe ser /Cipher/Espiral
 Y en el form data de post man ingresar primero el archivo a cifrar con nombre Files y abajo en forma text el numero de filas con nombbre Filas unicamente numeros, esto se valida si lo acepta o no.
 En la tercer fila se debe ingresar el nombre para el nuevo archivo con nombre Nombre.
 Para descifrar es la misma manera solo que con /Decipher/Espiral
+
+Visual debe permitir Visual Api 3.0
