@@ -42,7 +42,6 @@ namespace LabCifrado.Controllers
                     int i;
 
                     string nombre = nombreobj.Nombre;
-                    //string clave = key.Niveles;
                     int num = Convert.ToInt32(fil.Filas);
                     bool resultado = false;
                     if (int.TryParse(fil.Filas, out i))
@@ -83,8 +82,63 @@ namespace LabCifrado.Controllers
             string archivo = nombre;
             int clave = contra;
             string[] FileName1 = objFile.Files.FileName.Split(".");
-            RutaMetodos.ZigZagAlgortimo(_environment.WebRootPath + "\\UploadEspiral\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadEspiral\\" + archivo + ".txt", clave);
+            RutaMetodos.EspiralAlgortimo(_environment.WebRootPath + "\\UploadEspiral\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadEspiral\\" + archivo + ".txt", clave);
 
+        }
+
+
+        [Route("/Decipher/Espiral")]
+        [HttpPost]
+        public async Task<string> UploadFileZigZag([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
+        {
+            try
+            {
+                if (objFile.Files.Length > 0)
+                {
+                    int i;
+
+                    string nombre = nombreobj.Nombre;
+                    //string clave = key.Niveles;
+                    int num = Convert.ToInt32(key.Filas);
+                    bool resultado = false;
+                    if (int.TryParse(key.Filas, out i))
+                    {
+                        if (i < 10000 && i > 0)
+                        {
+                            if (!Directory.Exists(_environment.WebRootPath + "\\UploadEspiral\\")) Directory.CreateDirectory(_environment.WebRootPath + "\\UploadEspiral\\");
+                            using var _fileStream = System.IO.File.Create(_environment.WebRootPath + "\\UploadEspiral\\" + objFile.Files.FileName);
+                            objFile.Files.CopyTo(_fileStream);
+                            _fileStream.Flush();
+                            _fileStream.Close();
+                            resultado = true;
+                            EspiralDescifrado(objFile, num, nombre);
+                        }
+                        else
+                        {
+                            return "La contraseña está fuera del rango";
+                        }
+                    }
+                    else
+                    {
+                        return "La contraseña debe consistir de números";
+                    }
+                    return "Archivo Descfrado correctamente";
+                }
+                else return "Archivo Vacio";
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.ToString();
+            }
+        }
+
+        public void EspiralDescifrado(FileUploadApi objFile, int contra, string nombre)
+        {
+            string archivo = nombre;
+            int clave = contra;
+            string[] FileName1 = objFile.Files.FileName.Split(".");
+            RutaMetodos.EspiralAlgortimo2(_environment.WebRootPath + "\\UploadEspiral\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadEspiral\\" + archivo + ".txt", clave);
         }
     }
 }

@@ -119,7 +119,7 @@ namespace LabCifrado.Controllers
                     {
                         return "La contraseña debe consistir de números";
                     }
-                    return "Archivo subido y cifrado correctamente";
+                    return "Archivo Descifrado correctamente";
                 }
                 else return "Archivo Vacio";
 
