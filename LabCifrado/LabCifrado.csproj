@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cifrados\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
