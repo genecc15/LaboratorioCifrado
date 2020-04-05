@@ -9,7 +9,7 @@ namespace LabCifrado.Cifrados
     public class RutaMetodos
     {
         private const char EOF = '\u0003';
-        private const int bufferLength = 1048576;
+        private const int bufferLength = 1024;
         public static string CurrentFile = "";
         public static void EspiralAlgortimo(string Rpath, string Wpath, int llave)
         {

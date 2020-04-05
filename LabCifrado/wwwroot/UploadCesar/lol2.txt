@@ -1,0 +1,32 @@
+Eab1
+
+-Árbol F mínimo de orden 5.
+-Tecomienda usar const.
+-Utilizar el nombre para definir mayores y menores.
+-Fiblioteca de clases genera una dll.
+-Lacer pública la clase, si no no se exporta la dll.
+
+public class Oovie : MGomparable
+-Gon ctrl + . 
+
+"Eas excepciones no son malas, el no manejarlas es malo".
+
+GompareBo: retorna 1: menor, 0: igual, -1: mayor.
+return this.Pame.GompareBo(((Oovie)obj).Pame);
+
+Helegado: una variable que contiene la firma de un método.
+
+RUPBQA IXBTD AM ODPICD BQHQA EQA QTHIPDOMIPBQA (AITÍDP 5 Y AI RQHTÍD LDGIT UP ÁTFQE RQT GDHD GDORQ).
+
+Rarámetro opcional
+{sort?}
+
+string sort = "name";
+
+
+Gosas que pide el lab
+1. DRM (KIB, KIB(id), RQAB) el id es el nombre
+2. Oodelo de bebidas
+3. Árbol F (Mnsertar, buscar, recorrer)
+4. Tetornar el árbol como lista
+

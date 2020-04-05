@@ -99,8 +99,9 @@ namespace LabCifrado
             List<char> Diferentes = AlfabetoM.Except(ListaClave).ToList();
             List<char> Repetidos = (ListaClave.AsQueryable().Intersect(AlfabetoM)).ToList(); //Expresion Lamba para encontrar repetidos
             ListaFinal = Repetidos.Union(Diferentes).ToList();
-            var DiccionarioM = ListaFinal.Zip(AlfabetoM, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v); //Combinar listas y volverlas diccionario
+            var DiccionarioM = AlfabetoM.Zip(ListaFinal, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v); //Combinar listas y volverlas diccionario
             #endregion
+
             #region Diccionario Minusculas
             List<char> DiferentesP = AlfabetoP.Except(ListaClave2).ToList();
             List<char> RepetidosP = (ListaClave2.AsQueryable().Intersect(AlfabetoP)).ToList(); //Expresion Lamba para encontrar repetidos
