@@ -10,6 +10,7 @@ namespace LabCifrado
 {
     public class CesarMetodos
     {
+        private const int bufferLength = 1024;
         public static string CurrentFile = "";
         public static void CesarAlgoritmo(string Rpath, string Wpath, string llave)
         {
@@ -106,39 +107,55 @@ namespace LabCifrado
             ListaFinal2 = RepetidosP.Union(DiferentesP).ToList();
             var DiccionarioP = AlfabetoP.Zip(ListaFinal2, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v); //Combinar listas y volverlas diccionario
             #endregion
-            List<char> Cifrado = data.ToList();
-            List<char> CifradoFinal = new List<char>();
-            foreach (var item in Cifrado)
+            using (var file = new FileStream(Rpath, FileMode.Open))
             {
-                if (DiccionarioM.ContainsKey(item))
+                using (var reader = new BinaryReader(file))
                 {
-                    // CifradoFinal.Add(diccionario[item]);
-                    CifradoFinal.Add(DiccionarioM[item]);
-                }
-                else if (DiccionarioP.ContainsKey(item))
-                {
-                    CifradoFinal.Add(DiccionarioP[item]);
-                }
-                else
-                {
-                    CifradoFinal.Add(item);
+                    //Buffer para cifrar
+                    while (reader.BaseStream.Position != reader.BaseStream.Length)
+                    {
+                        var buffer = reader.ReadBytes(count: bufferLength);
+
+                        List<char> Cifrado = new List<char>();
+                        List<byte> CifradoFinal = new List<byte>();
+
+                        foreach (var item in buffer)
+                        {
+                            Cifrado.Add((char)item);
+                        }
+                        foreach (var item in Cifrado)
+                        {
+                            if (DiccionarioM.ContainsKey(item))
+                            {
+                                CifradoFinal.Add((byte)DiccionarioM[item]);
+                            }
+                            else if (DiccionarioP.ContainsKey(item))
+                            {
+                                CifradoFinal.Add((byte)DiccionarioP[item]);
+                            }
+                            else
+                            {
+                                CifradoFinal.Add((byte)item);
+                            }
+                        }
+
+                        FileStream fs = new FileStream(Wpath, FileMode.Append);
+                        BinaryWriter bw = new BinaryWriter(fs);
+
+                        bw.Write(CifradoFinal.ToArray());
+                        bw.Close();
+                    }
                 }
             }
 
-            string CifradoCompleto = "";
-            foreach (var item in CifradoFinal)
-            {
-                CifradoCompleto += item;
-            }
+            CurrentFile = Wpath; 
 
-            File.WriteAllText(Wpath, CifradoCompleto);
-            CurrentFile = Wpath;
         }
         #endregion
 
         #region Descifrar
 
-       public static void Descifrar(string Rpath, string Wpath, string llave)
+        public static void Descifrar(string Rpath, string Wpath, string llave)
         {
 
             #region Alfabeto Mayusculas
@@ -223,37 +240,43 @@ namespace LabCifrado
             ListaFinal2 = RepetidosP.Union(DiferentesP).ToList();
             var DiccionarioP = ListaFinal2.Zip(AlfabetoP, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v); //Combinar listas y volverlas diccionario
             #endregion
-            List<char> Descifrado = data.ToList();
-            List<char> DescifradoFinal = new List<char>();
-
-            foreach (var item in Descifrado)
+            using (var file = new FileStream(Rpath, FileMode.Open))
             {
-                if (DiccionarioM.ContainsKey(item))
+                using (var reader = new BinaryReader(file))
                 {
-                    // CifradoFinal.Add(diccionario[item]);
-                    DescifradoFinal.Add(DiccionarioM[item]);
-                }
-                else if (DiccionarioP.ContainsKey(item))
-                {
-                    DescifradoFinal.Add(DiccionarioP[item]);
-                }
-                else
-                {
-                    DescifradoFinal.Add(item);
+                    //Buffer para descifrar
+                    while (reader.BaseStream.Position != reader.BaseStream.Length)
+                    {
+                        var buffer = reader.ReadBytes(count: bufferLength);
+                        List<byte> DescifradoFinal = new List<byte>();
+
+                        foreach (var item in buffer)
+                        {
+                            if (DiccionarioM.ContainsKey((char)item))
+                            {
+                                DescifradoFinal.Add((byte)DiccionarioM[(char)item]);
+                            }
+                            else if (DiccionarioP.ContainsKey((char)item))
+                            {
+                                DescifradoFinal.Add((byte)DiccionarioP[(char)item]);
+                            }
+                            else
+                            {
+                                DescifradoFinal.Add(item);
+                            }
+                        }
+
+                        FileStream fs = new FileStream(Wpath, FileMode.Append);
+                        BinaryWriter bw = new BinaryWriter(fs);
+
+                        bw.Write(DescifradoFinal.ToArray());
+                        bw.Close();
+                    }
                 }
             }
-            string DescifradoCompleto = "";
-
-            foreach (var item in DescifradoFinal)
-            {
-                DescifradoCompleto += item;
-            }
-
-            File.WriteAllText(Wpath, DescifradoCompleto);
             CurrentFile = Wpath;
-
         }
+    }
 
         #endregion
-    }
 }
