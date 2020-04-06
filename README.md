@@ -14,5 +14,7 @@ Y en el form data de post man ingresar primero el archivo a cifrar con nombre Fi
 En la tercer fila se debe ingresar el nombre para el nuevo archivo con nombre Nombre.
 Para descifrar es la misma manera solo que con /Decipher/Espiral
 
+Si la clave es válida para cifrar con el método designado, pique a "send y download" y esto descragara el archivo donde el usuario desee. Si no se descarga pique unicamente en "send" para que muestre el status code de la api y el porque la clave no puede cifrar o descifrar el algoritmo.
+
 Visual debe permitir Visual Api 3.0
 Lab Final en Master.
