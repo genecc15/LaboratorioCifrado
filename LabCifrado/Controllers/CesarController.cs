@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LabCifrado.Cifrados;
+using System.Text;
 
 namespace LabCifrado.Controllers
 {
@@ -31,7 +32,7 @@ namespace LabCifrado.Controllers
 
         [Route("/Cipher/Cesar")]
         [HttpPost]
-        public async Task<string> UploadFileText([FromForm] FileUploadApi objFile,[FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
+        public async Task<IActionResult> UploadFileText([FromForm] FileUploadApi objFile,[FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
         {
             try
             {
@@ -54,23 +55,32 @@ namespace LabCifrado.Controllers
                         }
                         else
                         {
-                            return "No se puede usar esa clave, porfavor elige una palabra con letras diferentes.";
+                            return StatusCode(406, "No se puede usar esa clave, porfavor elige una palabra con letras diferentes sin repetir.");
+
                         }
                     }
                     else
                     {
-                        return "No se puede usar esa clave, porfavor escribe una palabra";
+                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros");                
                     }
-                    return "Archivo subido y cifrado correctamente";
-                }
-                else return "Archivo Vacio";
-                
+                    var memory = new MemoryStream();
+
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadCesar\\" + nombre + ".txt", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, nombre + ".txt");
+                } 
+               else return null;
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return null;
             }
         }
+
 
         public void CesarCifrado2(FileUploadApi objFile, string contra, string nombre)
         {
@@ -82,7 +92,7 @@ namespace LabCifrado.Controllers
 
         [Route("/Decipher/Cesar")]
         [HttpPost]
-        public async Task<string> UploadFileCesar([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
+        public async Task<IActionResult> UploadFileCesar([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
         {
             try
             {
@@ -105,21 +115,29 @@ namespace LabCifrado.Controllers
                         }
                         else
                         {
-                            return "No se puede usar esa clave, porfavor elige una palabra con letras diferentes.";
+                            return StatusCode(406, "No se puede usar esa clave, porfavor elige una palabra con letras diferentes sin repetir."); 
+
                         }
                     }
                     else
                     {
-                        return "No se puede usar esa clave, porfavor escribe una palabra";
+                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros");
                     }
-                    return "Archivo Descifrado correctamente";
-                }
-                else return "Archivo Vacio";
+                    var memory = new MemoryStream();
 
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadCesar\\" + nombre + ".txt", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, nombre + ".txt");
+                }
+                else return null;
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return null;
             }
 
 

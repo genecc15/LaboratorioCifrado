@@ -32,14 +32,14 @@ namespace LabCifrado.Controllers
 
         [Route("/Cipher/ZigZag")]
         [HttpPost]
-        public async Task<string> UploadFileText([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
+        public async Task<IActionResult> UploadFileText([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
         {
             try
             {
                 if (objFile.Files.Length > 0)
                 {
                     int i;
-   
+
                     string nombre = nombreobj.Nombre;
                     //string clave = key.Niveles;
                     int num = Convert.ToInt32(key.Niveles);
@@ -58,21 +58,29 @@ namespace LabCifrado.Controllers
                         }
                         else
                         {
-                            return "La contraseña está fuera del rango";
+                            return StatusCode(406, "La contraseña está fuera del rango");
                         }
                     }
                     else
                     {
-                        return "La contraseña debe consistir de números";
+                        return StatusCode(406, "La contraseña debe consistir de números");
                     }
-                    return "Archivo subido y cifrado correctamente";
+                    var memory = new MemoryStream();
+
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadZigZag\\" + nombre + ".txt", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, nombre + ".txt");
                 }
-                else return "Archivo Vacio";
+                else return null;
 
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return null;
             }
         }
 
@@ -86,7 +94,7 @@ namespace LabCifrado.Controllers
 
         [Route("/Decipher/ZigZag")]
         [HttpPost]
-        public async Task<string> UploadFileZigZag([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
+        public async Task<IActionResult> UploadFileZigZag([FromForm] FileUploadApi objFile, [FromForm] FileUploadApi key, [FromForm]FileUploadApi nombreobj)
         {
             try
             {
@@ -112,21 +120,29 @@ namespace LabCifrado.Controllers
                         }
                         else
                         {
-                            return "La contraseña está fuera del rango";
+                            return StatusCode(406, "La contraseña está fuera del rango");
                         }
                     }
                     else
                     {
-                        return "La contraseña debe consistir de números";
+                        return StatusCode(406, "La contraseña debe consistir de números");
                     }
-                    return "Archivo Descifrado correctamente";
+                    var memory = new MemoryStream();
+
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadZigZag\\" + nombre + ".txt", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, nombre + ".txt");
                 }
-                else return "Archivo Vacio";
+                else return null;
 
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return null;
             }
         }
 
