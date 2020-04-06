@@ -61,7 +61,7 @@ namespace LabCifrado.Controllers
                     }
                     else
                     {
-                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros");                
+                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros, espacios o caracateres especiales");                
                     }
                     var memory = new MemoryStream();
 
@@ -121,7 +121,7 @@ namespace LabCifrado.Controllers
                     }
                     else
                     {
-                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros");
+                        return StatusCode(406, "No se puede usar esa clave, porfavor escribe una palabra sin numeros, espacios o caracteres especciales");
                     }
                     var memory = new MemoryStream();
 
