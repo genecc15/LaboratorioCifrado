@@ -1,0 +1,64 @@
+Lab1
+
+-Árbol B mínimo de orden 5.
+-Recomienda usar const.
+-Utilizar el nombre para definir mayores y menores.
+-Biblioteca de clases genera una dll.
+-Hacer pública la clase, si no no se exporta la dll.
+
+public class Movie : IComparable
+-Con ctrl + . 
+
+"Las excepciones no son malas, el no manejarlas es malo".
+
+CompareTo: retorna 1: menor, 0: igual, -1: mayor.
+return this.Name.CompareTo(((Movie)obj).Name);
+
+Delegado: una variable que contiene la firma de un método.
+
+PUNTOS EXTRA SI MANEJA TODOS LOS ORDENAMIENTOS (SERÍAN 5 Y SE PODRÍA HACER UN ÁRBOL POR CADA CAMPO).
+
+Parámetro opcional
+{sort?}
+
+string sort = "name";
+
+
+Cosas que pide el lab
+1. API (GET, GET(id), POST) el id es el nombre
+2. Modelo de bebidas
+3. Árbol B (Insertar, buscar, recorrer)
+4. Retornar el árbol como lista
+
+Lab1
+
+-Árbol B mínimo de orden 5.
+-Recomienda usar const.
+-Utilizar el nombre para definir mayores y menores.
+-Biblioteca de clases genera una dll.
+-Hacer pública la clase, si no no se exporta la dll.
+
+public class Movie : IComparable
+-Con ctrl + . 
+
+"Las excepciones no son malas, el no manejarlas es malo".
+
+CompareTo: retorna 1: menor, 0: igual, -1: mayor.
+return this.Name.CompareTo(((Movie)obj).Name);
+
+Delegado: una variable que contiene la firma de un método.
+
+PUNTOS EXTRA SI MANEJA TODOS LOS ORDENAMIENTOS (SERÍAN 5 Y SE PODRÍA HACER UN ÁRBOL POR CADA CAMPO).
+
+Parámetro opcional
+{sort?}
+
+string sort = "name";
+
+
+Cosas que pide el lab
+1. API (GET, GET(id), POST) el id es el nombre
+2. Modelo de bebidas
+3. Árbol B (Insertar, buscar, recorrer)
+4. Retornar el árbol como lista
+

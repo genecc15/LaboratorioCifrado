@@ -20,6 +20,8 @@ namespace LabCifrado.Cifrados
         {
             Descifrar(Rpath, Wpath, llave);
         }
+
+        #region Espiral 
         public static void Cifrar(string Rpath, string WPath, int password)
         {
 
@@ -235,6 +237,7 @@ namespace LabCifrado.Cifrados
 
             CurrentFile = Wpath;
         }
+        #endregion
 
     }
 }

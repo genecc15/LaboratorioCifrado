@@ -1,0 +1,32 @@
+Ijo1
+
+-Áqomi O kílekm ha mqhal 5.
+-Qasmkealhj urjq smlrt.
+-Uteiezjq ai lmkoqa njqj habeleq kjymqar y kalmqar.
+-Oeoiemtasj ha sijrar calaqj ulj hii.
+-Djsaq núoiesj ij sijra, re lm lm ra axnmqtj ij hii.
+
+nuoies sijrr Kmvea : ESmknjqjoia
+-Sml stqi + . 
+
+"Ijr axsansemlar lm rml kjijr, ai lm kjlafjqijr ar kjim".
+
+SmknjqaTm: qatmqlj 1: kalmq, 0: ecuji, -1: kjymq.
+qatuql tder.Ljka.SmknjqaTm(((Kmvea)mof).Ljka);
+
+Haiacjhm: ulj vjqejoia pua smlteala ij beqkj ha ul kétmhm.
+
+NULTMR AXTQJ RE KJLAFJ TMHMR IMR MQHALJKEALTMR (RAQÍJL 5 Y RA NMHQÍJ DJSAQ UL ÁQOMI NMQ SJHJ SJKNM).
+
+Njqákatqm mnsemlji
+{rmqt?}
+
+rtqelc rmqt = "ljka";
+
+
+Smrjr pua neha ai ijo
+1. JNE (CAT, CAT(eh), NMRT) ai eh ar ai lmkoqa
+2. Kmhaim ha oaoehjr
+3. Áqomi O (Elraqtjq, oursjq, qasmqqaq)
+4. Qatmqljq ai áqomi smkm iertj
+
